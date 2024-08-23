@@ -1,0 +1,203 @@
+.home {
+    padding: 10px 40px;
+}
+
+.home-intro {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-intro-para {
+    font-size: 25px;
+}
+
+.home-intro-para span {
+    color: brown;
+    font-weight: bold;
+    font-size: 31px;
+}
+
+
+
+.home-button {
+    display: block;
+    padding: 8px 30px;
+    line-height: 40px;
+    font-size: 18px;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: #333;
+    border: 2px solid #333;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    transition: all .35s;
+}
+
+.home-button span {
+    position: relative;
+    z-index: 2;
+}
+
+.home-button:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #333;
+    transition: all .35s;
+}
+
+.home-button:hover {
+    color: #fff;
+}
+
+.home-button:hover:after {
+    width: 100%;
+}
+
+.home-img {
+    width: 770px;
+    height: 460px;
+}
+
+h2 {
+    color: rgb(29, 28, 28);
+    font-size: 33px;
+    text-align: center;
+}
+
+h3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.home-features ul {
+    margin-top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.home-features li {
+    text-align: center;
+    font-size: 20px;
+    list-style: none;
+    margin: 10px;
+    border: solid 1px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.icons {
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 25px;
+    color: white;
+}
+
+.icon1 {
+    background-color: rgb(245, 26, 63);
+
+}
+
+.icon2 {
+    background-color: rgb(19, 120, 160);
+
+}
+
+.icon3 {
+    background-color: rgb(5, 122, 15);
+
+}
+
+.home-how-it-works ol {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.home-how-it-works li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0px;
+    font-size: 20px;
+
+
+}
+
+.definition-container {
+    margin: 20px;
+}
+
+.definition {
+    display: flex;
+    /* Use flexbox for alignment */
+    flex-direction: row;
+    margin-bottom: 25px;
+    /* Add spacing between definitions */
+}
+
+.keyword {
+    font-size: 23px;
+    font-weight: bold;
+    /* Makes the keyword bold */
+    width: 250px;
+    /* Fixed width for alignment */
+    display: inline-block;
+    /* Ensures consistent alignment */
+}
+
+.content {
+    font-size: 20px;
+    flex: 1;
+    /* Allows content to take remaining space */
+}
+
+.home-why-choose ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px
+}
+
+.home-why-choose li {
+    width: 500px;
+    height: 200px;
+    list-style: none;
+    font-size: 20px;
+    padding: 30px;
+    color: white;
+    border-radius: 10%;
+}
+section{
+    margin-bottom: 60px;
+}
+.bg1 {
+    background: linear-gradient(to right, #eb0b43, #f894a5);
+}
+
+.bg2 {
+    background: linear-gradient(to right, #9047cf, #e6d9f2);
+}
+
+.bg3 {
+    background: linear-gradient(to right, #429efa, #cce0ff);
+
+}
+
+.bg4 {
+    background: linear-gradient(to right, #038b03, #86f786);
+
+}

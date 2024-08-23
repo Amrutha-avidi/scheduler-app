@@ -1,0 +1,181 @@
+/* Center the form on the page */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f4f4f9;
+}
+
+/* Form styling */
+.profile-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile-form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+  color: brown;
+}
+
+/* Label styling */
+.profile-form label {
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+.profile-form select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 18px;
+  color: #000;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.profile-form select:focus {
+  border-color: #007bff;
+}
+/* Input styling */
+.profile-form input  {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+/* Input focus state */
+.profile-form input:focus {
+  border-color: #007bff;
+}
+
+
+
+
+/* Add some spacing between the input fields */
+.profile-form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-button {
+  display: block;
+  padding: 4px;
+  line-height: 40px;
+  font-size: 15px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: #333; /* Default text color */
+  border: 2px solid #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all .35s;
+  margin-top: 10px;
+}
+
+.submit-button span {
+  position: relative;
+  z-index: 2;
+  transition: color .35s;
+}
+
+.submit-button:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: brown;
+  transition: width .35s;
+  z-index: 1;
+}
+
+.submit-button:hover span {
+  color: #fff; /* Change the text color to white on hover */
+}
+
+.submit-button:hover:after {
+  width: 100%;
+}
+/* Style for DatePicker container */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+/* Style for DatePicker input field */
+.react-datepicker__input-container input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: border 0.3s ease;
+  width: 100%;
+}
+
+/* Input focus state */
+.react-datepicker__input-container input:focus {
+  border-color: #007bff;
+}
+
+/* Style for DatePicker calendar popup */
+.react-datepicker {
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for DatePicker header */
+.react-datepicker__header {
+  background-color: brown;
+  color: #fff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Style for DatePicker month and year select */
+.react-datepicker__header select {
+  background-color: brown;
+  color: #fff;
+  border: none;
+}
+
+/* Style for DatePicker day names */
+.react-datepicker__day-names {
+  background-color: #f4f4f9;
+}
+
+/* Style for DatePicker days */
+.react-datepicker__day {
+  border-radius: 4px;
+  color: #333;
+}
+
+/* Style for DatePicker day hover state */
+.react-datepicker__day:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Style for selected day */
+.react-datepicker__day--selected {
+  background-color: brown;
+  color: #fff;
+}
