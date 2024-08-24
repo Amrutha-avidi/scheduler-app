@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 
 // Connect to SQLite3 database
-const db = new sqlite3.Database('database.db');
+const db = new sqlite3.Database('scheduler.db');
 
 const createTables = () => {
   db.serialize(() => {
@@ -12,7 +12,9 @@ const createTables = () => {
         availability TEXT NOT NULL,
         areas_of_expertise TEXT NOT NULL,
         is_premium BOOLEAN DEFAULT 0,
-        bookings TEXT DEFAULT '[]'
+        bookings TEXT DEFAULT '[]',
+        availability_start TEXT NOT NULL,
+        availability_end TEXT NOT NULL
       )
     `);
 

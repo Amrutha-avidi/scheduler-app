@@ -1,0 +1,20 @@
+.student-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 20px;
+}
+.student-info p{
+    margin-bottom: 0;
+}
+.confirm-button{
+    background-color: green;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    margin-top: 20px;
+}

@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('database.db');
+const db = new sqlite3.Database('scheduler.db');
 
 // Helper function to insert or update a student
 const upsertStudent = (studentData, callback) => {
@@ -39,9 +39,11 @@ const upsertStudent = (studentData, callback) => {
   });
 };
 
+
+
 // Helper function to insert a booking
 const insertBooking = (bookingData, callback) => {
-  const { student_id, mentor_id, booking_time } = bookingData;
+  const { student_id, mentor_id, booking_time,duration } = bookingData;
 
   // Fetch the student and mentor names before inserting the booking
   db.get('SELECT name FROM students WHERE id = ?', [student_id], (err, student) => {
@@ -49,16 +51,18 @@ const insertBooking = (bookingData, callback) => {
       return callback(err);
     }
 
-    db.get('SELECT name FROM mentors WHERE id = ?', [mentor_id], (err, mentor) => {
+    db.get('SELECT * FROM mentors WHERE id = ?', [mentor_id], (err, mentor) => {
       if (err) {
         return callback(err);
       }
 
       const student_name = student.name;
       const mentor_name = mentor.name;
-      const bookingDetails = { student_name, mentor_name, booking_time };
+      const bookingDetails = { student_name, mentor_name, booking_time,duration };
+      
 
       // Insert the booking into the bookings table
+
       db.run(
         `INSERT INTO bookings (student_id, mentor_id, booking_time) VALUES (?, ?, ?)`,
         [student_id, mentor_id, booking_time],
@@ -74,8 +78,8 @@ const insertBooking = (bookingData, callback) => {
             if (err) {
               return callback(err);
             }
+            const studentBookings = student.bookings ? JSON.parse(student.bookings) : [];
 
-            const studentBookings = JSON.parse(student.bookings || '[]');
             studentBookings.push(bookingDetails);
 
             db.run('UPDATE students SET bookings = ? WHERE id = ?', [JSON.stringify(studentBookings), student_id], (err) => {
@@ -89,10 +93,23 @@ const insertBooking = (bookingData, callback) => {
                   return callback(err);
                 }
 
-                const mentorBookings = JSON.parse(mentor.bookings || '[]');
+                const mentorBookings = mentor.bookings ? JSON.parse(mentor.bookings) :[];
                 mentorBookings.push(bookingDetails);
+                const formatTime = (dateString) => {
+                  const date = new Date(dateString);
+                  const hours = String(date.getHours()).padStart(2, '0');
+                  const minutes = String(date.getMinutes()).padStart(2, '0');
+                  const seconds = String(date.getSeconds()).padStart(2, '0');
+                  return `${hours}:${minutes}:${seconds}`;
+                };
 
-                db.run('UPDATE mentors SET bookings = ? WHERE id = ?', [JSON.stringify(mentorBookings), mentor_id], (err) => {
+                const bookingEndTime = booking_time.split(' - ')[1]; // Extract end time from booking_time
+                const timeString = formatTime(bookingEndTime);
+
+
+                const newAvailabilityStart = timeString;
+
+                db.run('UPDATE mentors SET bookings = ?, availability_start = ? WHERE id = ?', [JSON.stringify(mentorBookings),newAvailabilityStart, mentor_id], (err) => {
                   if (err) {
                     return callback(err);
                   }

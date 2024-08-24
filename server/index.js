@@ -20,27 +20,27 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Connect to SQLite3 database
-const db = new sqlite3.Database('database.db');
+const db = new sqlite3.Database('scheduler.db');
 
 createTables();
 
 
 // Insert a new mentor
 app.post('/mentors', (req, res) => {
-  const { name, availability, areas_of_expertise, is_premium,bookings=[] } = req.body;
+  const { name, availability, areas_of_expertise, is_premium,bookings=[],availability_start,availability_end } = req.body;
 
   // Convert areas_of_expertise array to JSON string
   const expertiseJson = JSON.stringify(areas_of_expertise);
   const bookingsJson = JSON.stringify(bookings)
 
   db.run(
-    `INSERT INTO mentors (name, availability, areas_of_expertise, is_premium,bookings) VALUES (?, ?, ?, ?,?)`,
-    [name, availability, expertiseJson, is_premium ? 1 : 0,bookingsJson],
+    `INSERT INTO mentors (name, availability, areas_of_expertise, is_premium,bookings,availability_start,availability_end) VALUES (?,?,?, ?, ?, ?,?)`,
+    [name, availability, expertiseJson, is_premium ? 1 : 0,bookingsJson,availability_start,availability_end],
     function (err) {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
-      res.json({ id: this.lastID, name, availability, areas_of_expertise, is_premium,bookingsJson });
+      res.json({ id: this.lastID, name, availability, areas_of_expertise, is_premium,bookingsJson,availability_start,availability_end });
     }
   );
 });
@@ -96,6 +96,32 @@ app.get('/mentors/:id', (req, res) => {
     res.json(row);
   });
 });
+
+app.get("/bookings/student/:id",(req,res)=>{
+  const studentId = req.params.id
+  db.get('SELECT * FROM students WHERE id = ?', [studentId], (err, row)=>{
+    if(err){
+      return res.status(500).json({error:err.message})
+    }
+    if(!row){
+      return res.status(404).json({error : 'Student not found'})
+    }
+    res.json(row)
+  })
+})
+
+app.get("/bookings/mentor/:id",(req,res)=>{
+  const mentorId = req.params.id
+  db.get('SELECT * FROM mentors WHERE id = ?', [mentorId], (err, row)=>{
+    if(err){
+      return res.status(500).json({error:err.message})
+    }
+    if(!row){
+      return res.status(404).json({error : 'Mentor not found'})
+    }
+    res.json(row)
+  })
+})
 // Get all students
 app.get('/students', (req, res) => {
   db.all('SELECT * FROM students', [], (err, rows) => {
@@ -104,6 +130,31 @@ app.get('/students', (req, res) => {
     }
     res.json(rows);
   });
+});
+
+
+// Update bookings for a mentor
+app.put('/mentors/:id/bookings', (req, res) => {
+  const mentorId = req.params.id;
+  const { availability_end,availability_start,bookings=[] } = req.body;
+
+  // Convert bookings array to JSON string
+
+  db.run(
+    `UPDATE mentors 
+     SET availability_start = ?, availability_end = ?
+     WHERE id = ?`,
+    [availability_start,availability_end , mentorId],
+    function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      if (this.changes === 0) {
+        return res.status(404).json({ error: 'Mentor not found' });
+      }
+      res.json({ message: 'Bookings updated successfully', id: mentorId });
+    }
+  );
 });
 
 app.delete('/students/:id', (req, res) => {
@@ -117,9 +168,9 @@ app.delete('/students/:id', (req, res) => {
         return res.status(500).json({ error: err.message });
       }
       if (this.changes === 0) {
-        return res.status(404).json({ error: 'student not found' });
+        return res.status(404).json({ error: 'students not found' });
       }
-      res.status(200).json({ message: 'student deleted successfully' });
+      res.status(200).json({ message: 'students deleted successfully' });
     }
   );
 });

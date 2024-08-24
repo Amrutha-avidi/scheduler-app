@@ -12,8 +12,12 @@ const Navbar = () => {
           <h1 className="navbar-logo"><Link to='/' style={{ textDecoration: 'none', color: "white" }}>Skill Bridge</Link></h1>
         </div>
         <div className="navbar-items">
-          <button className="navbar-button"><Link to='/profile' style={{ textDecoration: 'none', color: "white" }}>Profile</Link></button>
-          <button className="navbar-button">Bookings</button>
+          <button className="navbar-button">
+            <Link to='/profile' style={{ textDecoration: 'none', color: "white" }}>Profile</Link>
+          </button>
+          <button className="navbar-button">
+            <Link to='/bookings' style={{ textDecoration: 'none', color: "white" }}>Bookings</Link>
+          </button>
         </div>
       </div>
     </nav>

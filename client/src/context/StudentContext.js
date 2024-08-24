@@ -9,11 +9,13 @@ export const StudentProvider = ({ children }) => {
   const [availability, setAvailability] = useState('');
   const [areaOfInterest, setAreaOfInterest] = useState('');
   const [student_id, setStudentId] = useState(null); // Add student_id
+  const [role,setRole] = useState('student')
+
 
 
   return (
     <StudentContext.Provider
-      value={{ name, setName, availability, setAvailability, areaOfInterest, setAreaOfInterest,student_id, setStudentId }}
+      value={{ name, setName, availability, setAvailability, areaOfInterest, setAreaOfInterest,student_id, setStudentId, role,setRole}}
     >
       {children}
     </StudentContext.Provider>

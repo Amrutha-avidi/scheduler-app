@@ -1,15 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { StudentContext } from '../../context/StudentContext'; // Import the context
-import { SlCalender } from "react-icons/sl";
 import axios from 'axios';
 import './index.css'
+import MentorItem from '../MentorItem';
 
 
 const Mentors = () => {
   const { name, areaOfInterest, availability } = useContext(StudentContext);
   const [mentorData, setMentorData] = useState([]);
-  const [selectedDuration, setSelectedDuration] = useState('15');
 
 
   useEffect(() => {
@@ -61,34 +60,7 @@ const Mentors = () => {
               <p className='intro-paras'>These are the mentors available for your chosen area of interest: <strong>{areaOfInterest}</strong> on <strong>{formattedAvailability}</strong></p>
               <ul className='filtered-mentors-con'>
                 {filteredMentorData.map((mentor) => (
-                  <li className='filtered-mentors-items' key={mentor.id}>
-                    <h3>{mentor.name} , {mentor.id}</h3>
-                    <div className='mentor-content'>
-                      <div className='mentor-areas'>Expertise:
-                        <ul>{mentor.areas_of_expertise.map(each => (
-                          <li className="badge" key={each}>{each}</li>
-                        ))}
-                        </ul>
-                      </div>
-                      <div className="mentor-availability">
-                        <p ><SlCalender size={25} color='black'/> Tuesday to Friday, 7 PM - 9 PM (tentative) and weekends</p>
-
-                      </div>
-                      <div className='mentor-duration'>
-                        <label htmlFor='duration'> Duration :</label>
-                        <select name="duration" id="duration"  value={selectedDuration}
-                          onChange={(e) => setSelectedDuration(e.target.value)}>
-                          <option value='15'>15 Minutes</option>
-                          <option value='30'>30 Minutes</option>
-                          <option value='60'>60 Minutes</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className='mentor-footer '>
-                      <Link to={`/bookings/${mentor.id}/${selectedDuration}`} className="book-button">Book Now</Link>
-
-                    </div>
-                  </li>
+                  <MentorItem key={mentor.id} mentor={mentor} />
                 ))}
               </ul>
             </div>

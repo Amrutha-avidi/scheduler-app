@@ -1,12 +1,22 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BsGraphUpArrow } from "react-icons/bs";
 import { PiBookOpenTextDuotone, PiPlugsConnected } from "react-icons/pi";
 
 
 
 import './index.css';
+import { useContext } from 'react';
+import { StudentContext } from '../../context/StudentContext';
 
 const Home = () => {
+  const { setRole } = useContext(StudentContext)
+  const navigate = useNavigate();
+
+  const handleRoleSelection = (selectedRole) => {
+    setRole(selectedRole);
+    navigate('/profile'); // Navigate to bookings for mentors
+
+  };
   return (
     <div className="home">
       <section className="home-intro">
@@ -14,9 +24,9 @@ const Home = () => {
           <p className="home-intro-para">
             <span>SkillBridge</span> is an innovative platform designed to connect students with industry professionals and mentors. Our goal is to bridge the gap between academic knowledge and real-world skills, helping you to enhance your career prospects and achieve your professional goals. Build your professional network by connecting with industry experts. Attend virtual and in-person events to expand your connections and explore new opportunities
           </p>
-          <Link to='/profile' style={{ textDecoration: 'none' }}>
-            <button className='home-button' href="#profile"><span>Get Started !</span></button>
-          </Link>
+          <button className='home-button' onClick={() => handleRoleSelection('student')}><span>I'm a Student !</span></button>
+          <button className='home-button' onClick={() => handleRoleSelection('mentor')}><span>I'm a Mentor !</span></button>
+
         </div>
         <img className='home-img' src='https://res.cloudinary.com/drpddho9b/image/upload/v1724169209/Online_education_web_courses_concept_oht9dy.jpg' alt='home-image' />
 
